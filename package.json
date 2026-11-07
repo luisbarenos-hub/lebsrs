@@ -1,0 +1,16 @@
+{
+  "name": "lebsrs",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
+    "bootstrap": "^5.3.8",
+    "react-router-dom": "^7.18.5"
+  }
+}
