@@ -1,33 +1,36 @@
-import { useEffect, useState } from 'react';
-import { supabase } from './supabase';
+import { useState } from 'react'
 
-export default function App() {
-  const [datos, setDatos] = useState([]);
-  const [error, setError] = useState(null);
+function App() {
+  const [notas, setNotas] = useState([]);
+  const [texto, setTexto] = useState('');
 
-  useEffect(() => {
-    async function obtenerDatos() {
-      // Reemplaza 'nombre_de_tu_tabla' por una tabla real de tu Supabase
-      const { data, error } = await supabase.from('productos').select('*');
-      
-      if (error) {
-        console.error('Error al consultar Supabase:', error.message);
-        setError(error.message);
-      } else {
-        console.log('Datos recibidos:', data);
-        setDatos(data);
-      }
+  const agregarNota = () => {
+    if (texto.trim() !== '') {
+      setNotas([...notas, texto]);
+      setTexto('');
     }
-
-    obtenerDatos();
-  }, []);
+  };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Proyecto Lebsrs</h1>
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-      <h3>Registros en base de datos:</h3>
-      <pre>{JSON.stringify(datos, null, 2)}</pre>
+    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
+      <h1>Mis Notas (App Original)</h1>
+      <input 
+        type="text" 
+        value={texto} 
+        onChange={(e) => setTexto(e.target.value)} 
+        placeholder="Escribe una nota..."
+        style={{ padding: '10px', width: '70%' }}
+      />
+      <button onClick={agregarNota} style={{ padding: '10px 15px', marginLeft: '10px' }}>
+        Agregar
+      </button>
+      <ul style={{ marginTop: '20px', textAlign: 'left' }}>
+        {notas.map((nota, index) => (
+          <li key={index} style={{ marginBottom: '10px' }}>{nota}</li>
+        ))}
+      </ul>
     </div>
-  );
+  )
 }
+
+export default App
